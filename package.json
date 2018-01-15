@@ -1,0 +1,51 @@
+{
+	"name": "valory-adaptor-claudia",
+	"version": "1.0.0",
+	"description": "Claudia adaptor for valory",
+	"typings": "dist/adaptor-claudia.d.ts",
+	"main": "dist/adaptor-claudia.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"pretest": "npm run build",
+		"build": "tsc",
+		"prepare": "npm run build",
+		"release": "semantic-release",
+		"commitmsg": "commitlint -e $GIT_PARAMS"
+	},
+	"author": "",
+	"license": "ISC",
+	"files": [
+		"dist",
+		"package.json"
+	],
+	"devDependencies": {
+		"@commitlint/cli": "^6.0.1",
+		"@commitlint/config-conventional": "^5.2.3",
+		"@types/node": "^9.3.0",
+		"@types/swagger-schema-official": "^2.0.8",
+		"cz-conventional-changelog": "^2.1.0",
+		"husky": "^0.14.3",
+		"semantic-release": "^11.0.2",
+		"typescript": "^2.6.2",
+		"valory": "latest"
+	},
+	"peerDependencies": {
+		"valory": "latest"
+	},
+	"dependencies": {
+		"claudia-api-builder": "^3.0.0",
+		"fast.js": "^0.1.1"
+	},
+	"release": {
+		"repositoryUrl": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/valory-adaptor-claudia",
+		"branch": "master",
+		"verifyConditions": [
+			"@semantic-release/npm"
+		]
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	}
+}
