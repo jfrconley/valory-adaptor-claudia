@@ -8,6 +8,15 @@ export class ClaudiaAdaptor implements ApiServer {
 
 	constructor() {
 		this.response = new this.instance.ApiResponse(null, null, null);
+		this.instance.setGatewayResponse("DEFAULT_4XX", {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			statusCode: 404,
+			responseTemplates: {
+				"application/json": `{"message": "Not Found"}`,
+			},
+		});
 	}
 
 	public register(path: string, method: HttpMethod,
