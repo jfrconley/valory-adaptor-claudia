@@ -3,6 +3,7 @@ const ApiBuilder = require("claudia-api-builder");
 
 export class ClaudiaAdaptor implements ApiServer {
 	public allowDocSite: boolean = true;
+	public locallyRunnable: boolean = false;
 	private instance = new ApiBuilder();
 	private response: any = null;
 
@@ -27,6 +28,7 @@ export class ClaudiaAdaptor implements ApiServer {
 				const tranReq: ApiExchange = {
 					attachments: {},
 					body: req.body,
+					rawBody: req.rawBody,
 					headers: req.normalizedHeaders,
 					statusCode: 200,
 					query: req.queryString,
