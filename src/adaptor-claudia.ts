@@ -1,4 +1,6 @@
-import {ApiExchange, ApiServer, HttpMethod, ValoryMetadata} from "valory";
+import {ApiExchange, ApiResponse, ApiServer, HttpMethod, ValoryMetadata} from "valory";
+import {ApiRequest} from "valory/dist/server/request";
+
 const ApiBuilder = require("claudia-api-builder");
 
 export class ClaudiaAdaptor implements ApiServer {
@@ -21,31 +23,29 @@ export class ClaudiaAdaptor implements ApiServer {
 	}
 
 	public register(path: string, method: HttpMethod,
-					handler: (request: ApiExchange) => ApiExchange | Promise<ApiExchange>): void {
+					handler: (request: ApiRequest) => ApiResponse | Promise<ApiResponse>): void {
 		const responseObj = this.response;
 		const stringMethod = HttpMethod[method].toLowerCase();
 		this.instance[stringMethod](path, async (req: any) => {
-				const tranReq: ApiExchange = {
-					attachments: {},
-					body: req.body,
-					rawBody: req.rawBody,
-					headers: req.normalizedHeaders,
-					statusCode: 200,
-					query: req.queryString,
-					formData: req.post,
-					path: req.pathParams,
-					route: `${path}:${stringMethod}`,
-				};
-
-				const handlerResp = await handler(tranReq);
-				responseObj.response = handlerResp.body;
-				responseObj.headers = handlerResp.headers;
-				responseObj.code = handlerResp.statusCode;
-				return responseObj;
+			const tranReq = new ApiRequest({
+				body: req.body,
+				rawBody: req.rawBody,
+				headers: req.normalizedHeaders,
+				query: req.queryString,
+				formData: req.post,
+				path: req.pathParams,
+				route: `${path}:${stringMethod}`,
 			});
+
+			const handlerResp = await handler(tranReq);
+			responseObj.response = handlerResp.body;
+			responseObj.headers = handlerResp.headers;
+			responseObj.code = handlerResp.statusCode;
+			return responseObj;
+		});
 	}
 
-	public getExport(metadata: ValoryMetadata, options: any): {valory: ValoryMetadata} {
+	public getExport(metadata: ValoryMetadata, options: any): { valory: ValoryMetadata } {
 		this.instance.valory = metadata;
 		return (this.instance as any);
 	}
