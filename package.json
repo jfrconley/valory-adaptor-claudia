@@ -19,22 +19,21 @@
 		"package.json"
 	],
 	"devDependencies": {
-		"@commitlint/cli": "^6.0.1",
-		"@commitlint/config-conventional": "^6.1.3",
-		"@types/node": "^9.3.0",
+		"@commitlint/cli": "^7.0.0",
+		"@commitlint/config-conventional": "^7.0.1",
+		"@types/node": "^10.5.7",
 		"@types/swagger-schema-official": "^2.0.8",
 		"cz-conventional-changelog": "^2.1.0",
 		"husky": "^0.14.3",
 		"semantic-release": "^15.1.7",
-		"typescript": "^2.6.2",
-		"valory": "latest"
+		"typescript": "^3.0.1",
+		"valory-runtime": "^3.5.1"
 	},
 	"peerDependencies": {
-		"valory": "latest"
+		"valory-runtime": "^3.5.1"
 	},
 	"dependencies": {
-		"claudia-api-builder": "^4.0.0",
-		"fast.js": "^0.1.1"
+		"claudia-api-builder": "^4.0.0"
 	},
 	"release": {
 		"repositoryUrl": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/valory-adaptor-claudia",
@@ -48,7 +47,6 @@
 		"success": [],
 		"fail": []
 	},
-
 	"config": {
 		"commitizen": {
 			"path": "./node_modules/cz-conventional-changelog"

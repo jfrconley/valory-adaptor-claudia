@@ -2,7 +2,7 @@ const router = require("./claudiaTest");
 
 const burnRequest = {
 	requestContext: {
-		resourcePath: "/burn",
+		resourcePath: "/burn/kelsey/purple",
 		httpMethod: "GET",
 	},
 	headers: {
@@ -33,7 +33,7 @@ const submitBurnRequest = {
 	},
 };
 
-router.proxyRouter(submitBurnRequest,
+router.proxyRouter(burnRequest,
 	{
 		done: function done(errorResponse: any, dataResponse: any) {
 			console.log("API Test\n");

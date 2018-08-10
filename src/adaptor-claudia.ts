@@ -1,5 +1,4 @@
-import {ApiExchange, ApiResponse, ApiServer, HttpMethod, ValoryMetadata} from "valory";
-import {ApiRequest} from "valory/dist/server/request";
+import {ApiResponse, ApiServer, HttpMethod, ValoryMetadata, ApiRequest} from "valory-runtime";
 
 const ApiBuilder = require("claudia-api-builder");
 
