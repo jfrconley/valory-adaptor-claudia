@@ -36,13 +36,15 @@
 		"claudia-api-builder": "^4.0.0"
 	},
 	"release": {
-		"repositoryUrl": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/valory-adaptor-claudia",
+		"repositoryUrl": "https://github.com/jfrconley/valory-adaptor-claudia.git",
 		"branch": "master",
 		"verifyConditions": [
-			"@semantic-release/npm"
+			"@semantic-release/npm",
+			"@semantic-release/github"
 		],
 		"publish": [
-			"@semantic-release/npm"
+			"@semantic-release/npm",
+			"@semantic-release/github"
 		],
 		"success": [],
 		"fail": []
@@ -54,5 +56,11 @@
 	},
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org"
-	}
+	},
+	"repository": "https://github.com/jfrconley/valory-adaptor-claudia.git",
+	"keywords": [
+		"claudia",
+		"valory",
+		"claudia-api-builder"
+	]
 }
