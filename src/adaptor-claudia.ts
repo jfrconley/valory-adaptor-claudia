@@ -1,4 +1,4 @@
-import {ApiResponse, ApiServer, HttpMethod, ValoryMetadata, ApiRequest} from "valory-runtime";
+import {ApiResponse, ApiServer, HttpMethod, ValoryMetadata, ApiRequest, AttachmentKey} from "valory-runtime";
 
 const ApiBuilder = require("claudia-api-builder");
 
