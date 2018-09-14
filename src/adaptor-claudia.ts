@@ -41,10 +41,10 @@ export class ClaudiaAdaptor implements ApiServer {
 	}
 
 	public register(path: string, method: HttpMethod,
-					handler: (request: ApiRequest) => ApiResponse | Promise<ApiResponse>): void {
+					handler: (request: ApiRequest) => Promise<ApiResponse>): void {
 		const responseObj = this.response;
 		const stringMethod = HttpMethod[method].toLowerCase();
-		this.instance[stringMethod](path, async (req: any) => {
+		this.instance[stringMethod](path, (req: any) => {
 			const tranReq = new ApiRequest({
 				body: req.body,
 				rawBody: req.rawBody,
@@ -56,11 +56,12 @@ export class ClaudiaAdaptor implements ApiServer {
 			});
 			tranReq.putAttachment(ClaudiaAdaptor.ClaudiaContextKey, req.context);
 
-			const handlerResp = await handler(tranReq);
-			responseObj.response = handlerResp.body;
-			responseObj.headers = handlerResp.headers;
-			responseObj.code = handlerResp.statusCode;
-			return responseObj;
+			return handler(tranReq).then((handlerResp) => {
+                responseObj.response = handlerResp.body;
+                responseObj.headers = handlerResp.headers;
+                responseObj.code = handlerResp.statusCode;
+                return responseObj;
+			});
 		});
 	}
 
