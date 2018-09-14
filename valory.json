@@ -1,0 +1,6 @@
+{
+  "entrypoint": "dist/dev/claudiaTest.js",
+  "isTS": true,
+  "sourceEntrypoint": "src/dev/claudiaTest.ts",
+  "singleError": false
+}

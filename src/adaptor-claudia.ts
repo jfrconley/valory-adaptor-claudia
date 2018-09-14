@@ -24,8 +24,9 @@ export class ClaudiaAdaptor implements ApiServer {
 	public static ClaudiaContextKey = ApiRequest.createKey<ClaudiaContext>();
 	public allowDocSite: boolean = true;
 	public locallyRunnable: boolean = false;
-	private instance = new ApiBuilder();
-	private response: any = null;
+    private headerOverride: {success: {headers: {[name: string]: string}}} = {success: {headers: {}}};
+    private instance = new ApiBuilder();
+    private response: any = null;
 
 	constructor() {
 		this.response = new this.instance.ApiResponse(null, null, null);
@@ -57,12 +58,23 @@ export class ClaudiaAdaptor implements ApiServer {
 			tranReq.putAttachment(ClaudiaAdaptor.ClaudiaContextKey, req.context);
 
 			return handler(tranReq).then((handlerResp) => {
+				if (handlerResp.headers["Content-Type"] === "application/json" && typeof handlerResp.body === "string") {
+                    this.headerOverride.success.headers = handlerResp.headers;
+                    let counter = 0;
+                    responseObj.headers = {
+                        get "Content-Type"() {
+                            counter++;
+                            return (counter == 1) ? "text/plain" : "application/json"
+                        }
+                    };
+				} else {
+                    responseObj.headers = handlerResp.headers;
+                }
                 responseObj.response = handlerResp.body;
-                responseObj.headers = handlerResp.headers;
                 responseObj.code = handlerResp.statusCode;
                 return responseObj;
 			});
-		});
+		}, this.headerOverride);
 	}
 
 	public getExport(metadata: ValoryMetadata, options: any): { valory: ValoryMetadata } {
