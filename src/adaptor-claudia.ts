@@ -24,7 +24,7 @@ export class ClaudiaAdaptor implements ApiServer {
 	public static ClaudiaContextKey = ApiRequest.createKey<ClaudiaContext>();
 	public allowDocSite: boolean = true;
 	public locallyRunnable: boolean = false;
-    private headerOverride: {success: {headers: {[name: string]: string}}} = {success: {headers: {}}};
+    private headerOverride: {success: {headers: {[name: string]: string}}} = {success: {headers: {"content": ""}}};
     private instance = new ApiBuilder();
     private response: any = null;
 
